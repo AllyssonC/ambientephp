@@ -1,0 +1,37 @@
+---
+# This playbook deploys the whole application stack on a single server, for development
+
+- name: apply common configuration
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+  - common
+
+- name: install postgresql
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+  - postgresql
+
+- name: install apache
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+  - apache
+
+- name: install php
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+  - php
+
+- name: configure the env
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+  - code

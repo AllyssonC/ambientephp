@@ -1,0 +1,31 @@
+---
+# These tasks install http and the php modules.
+
+- name: Create apache group
+  group:
+    name: "{{ apachegroupname }}"
+    gid: "{{ apachegroupid }}"
+
+- name: Create apache user
+  user:
+    name: "{{ apacheusername }}"
+    uid: "{{ apacheuserid }}"
+
+- name: Create application dirs
+  file:
+    path: "{{ applicationpath }}"
+    state: directory
+    owner: "{{ apacheusername }}"
+    group: "{{ apacheusername }}"
+    mode: 0775
+
+- name: Install Apache
+  apt: name=apache2
+
+- name: Configure apache daemon
+  template: src={{ item }}.j2 dest={{apacheconfig}}/{{ item }}
+  with_items:
+      - envvars
+      - apache2.conf
+  notify: restart apache2
+

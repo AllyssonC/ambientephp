@@ -1,0 +1,4 @@
+---
+
+- name: Install composer
+  include: "./composer.yml"

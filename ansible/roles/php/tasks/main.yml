@@ -1,0 +1,17 @@
+---
+  - name: Include PHP7 repo on apt
+    apt_repository: repo='ppa:ondrej/php'
+
+  - name: Install PHP
+    apt: name={{item}} update_cache=true state=latest
+    with_items:
+      - php7.0
+      - libapache2-mod-php7.0
+      - php7.0-curl
+      - php7.0-pgsql
+      - php7.0-json
+      - php7.0-dev
+      - php7.0-zip
+      - php7.0-mbstring
+      - php7.0-intl
+      - php-pear
